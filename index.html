@@ -486,7 +486,7 @@
             <h2 class="configurator-title">Инженерный подбор и сервис</h2>
             <p class="configurator-subtitle">Выберите тип обращения – инженер подготовит рекомендацию по оборудованию или свяжется по сервисной задаче в течение рабочего дня.</p>
             <div class="configurator">
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="#" method="post" enctype="multipart/form-data" novalidate>
                     <fieldset class="calc-group">
                         <legend>Тип обращения</legend>
                         <div class="calc-options calc-options--three">
@@ -589,18 +589,22 @@
                             <div class="form-group">
                                 <label for="lastName">Фамилия</label>
                                 <input type="text" id="lastName" name="lastName" placeholder="Иванов" required>
+                                <span class="form-error" aria-live="polite"></span>
                             </div>
                             <div class="form-group">
                                 <label for="firstName">Имя</label>
                                 <input type="text" id="firstName" name="firstName" placeholder="Иван" required>
+                                <span class="form-error" aria-live="polite"></span>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Телефон</label>
-                                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" maxlength="18" autocomplete="tel" inputmode="tel" required>
+                                <span class="form-error" aria-live="polite"></span>
                             </div>
                             <div class="form-group">
                                 <label for="email">Почта</label>
                                 <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                                <span class="form-error" aria-live="polite"></span>
                             </div>
                             <div class="form-group form-group--full">
                                 <label for="requirements">Описание задачи</label>
@@ -614,10 +618,13 @@
                     </fieldset>
 
                     <div class="form-submit">
-                        <label class="privacy-label">
-                            <input type="checkbox" name="privacy_agreement" required>
-                            <span>Я согласен на обработку персональных данных организации в соответствии с <a href="privacy.html" class="privacy-link">политикой конфиденциальности</a></span>
-                        </label>
+                        <div class="form-group form-group--full">
+                            <label class="privacy-label">
+                                <input type="checkbox" name="privacy_agreement" required>
+                                <span>Я согласен на обработку персональных данных организации в соответствии с <a href="privacy.html" class="privacy-link">политикой конфиденциальности</a></span>
+                            </label>
+                            <span class="form-error" aria-live="polite"></span>
+                        </div>
                         <button type="submit" name="submit_action" value="calc" class="btn-submit btn-submit--calc" data-submit="calc">Получить инженерный расчёт</button>
                         <button type="submit" name="submit_action" value="service" class="btn-submit btn-submit--service" data-submit="service" hidden>Отправить сервисную заявку</button>
                     </div>
@@ -655,6 +662,25 @@
             <p class="copyright">© ПромЧистТех – 2026. Все права защищены.</p>
         </div>
     </footer>
+
+    <div class="modal" id="success-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+        <div class="modal__overlay" data-modal-close></div>
+        <div class="modal__dialog" role="document">
+            <button type="button" class="modal__close" data-modal-close aria-label="Закрыть">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M6 6 L18 18 M18 6 L6 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="modal__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12 L10 17 L20 7"/>
+                </svg>
+            </div>
+            <h3 class="modal__title" id="success-modal-title">Заявка успешно отправлена</h3>
+            <p class="modal__text">Спасибо! Инженер свяжется с вами в течение рабочего дня для уточнения деталей.</p>
+            <button type="button" class="btn-submit modal__btn" data-modal-close>Хорошо</button>
+        </div>
+    </div>
 
     <button type="button" class="scroll-top" aria-label="Наверх" hidden>
         <span class="scroll-circle" aria-hidden="true">
